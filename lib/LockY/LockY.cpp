@@ -43,7 +43,7 @@ int LockY::startingPage(){
             lcd.locate(50,0);
             lcd.printf("LockY");
             lcd.locate(25,10);
-            lcd.printf("1000 points = 1 food");
+            lcd.printf("100 points = 1 food");
 
             ThisThread::sleep_for(100ms);
             while(1){
@@ -61,7 +61,7 @@ int LockY::startingPage(){
                     lcd.locate(50,0);
                     lcd.printf("LockY");
                     lcd.locate(25,10);
-                    lcd.printf("Points = (int)1000/second");
+                    lcd.printf("Points = 1000/second");
                     ThisThread::sleep_for(100ms);
                     while(1){
                         if(joystick.center.read()){
@@ -100,7 +100,7 @@ int LockY::main(){
     lcd.printf("LockY");
 
     lcd.locate(32,12);
-    lcd.printf("Best time: %d", highScore);
+    lcd.printf("HighScore: %d", highScore);
 
     bool lastJ = false;
     bool currentJ = false;
@@ -135,7 +135,7 @@ int LockY::main(){
             lcd.printf("LockY");
 
             lcd.locate(32,12);
-            lcd.printf("Best time: %d", highScore);
+            lcd.printf("HighScore: %d", highScore);
             ThisThread::sleep_for(100ms);
         }
         if(joystick.left.read()){
@@ -165,7 +165,6 @@ int LockY::game(){
     lcd.line(floatToLine(rightSafe), 15, floatToLine(rightSafe, true), 15, 0);
 
     while(!win){
-        printf("%f", rightSafe);
         //Take data from the 2 potentiometer
         float pot1 = potentiometerDown.read();
         float pot2 = potentiometerUP.read();
@@ -187,7 +186,7 @@ int LockY::game(){
     lcd.cls();
 
 
-    int score = 100000/((timer.elapsed_time()).count());
+    int score = (int)(1000/((timer.elapsed_time()).count()/1000000));
     //circle
     lcd.circle(123,4,2,1);
 
@@ -224,9 +223,6 @@ bool decimalCheck(float numberOne, float numberTwo, int decimalPlaces) {
 }
 
 float rand01(){
-    float toReturn = rand()%2;
-    if(toReturn >= 1 ){
-        return toReturn - 1.0f;
-    }
+    float toReturn = (float)rand()/RAND_MAX;
     return toReturn;
 }

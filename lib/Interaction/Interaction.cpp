@@ -166,7 +166,7 @@ void Interaction::execute(int selected){
             if(this->joystick.left){
                 return;
             }
-            this->slider({"LCatch", "Pong"}, [this](int selected) { this->useGame(selected); }, true);
+            this->slider({"LCatch", "Pong", "LockY"}, [this](int selected) { this->useGame(selected); }, true);
         }
     }
     if(selected == 2){
@@ -233,4 +233,12 @@ void Interaction::useGame(int selected){
     //         this->mainPage.menu.bag.addFood(tmpFood);
     //     }
     // }
+    if(selected == 2){
+        int addFood = this->mainPage.menu.game.lockY.startingPage()/200;
+        for(int i = 0; i < addFood; i++){
+            Food tmpFood("UNK", 0);
+            tmpFood = tmpFood.randomFood();
+            this->mainPage.menu.bag.addFood(tmpFood);
+        }
+    }
 }
