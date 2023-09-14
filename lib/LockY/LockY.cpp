@@ -3,6 +3,7 @@
 
 int floatToLine(float toAngle, bool second = false);
 bool decimalCheck(float numberOne, float numberTwo, int decimalPlaces);
+float rand01();
 
 LockY::LockY(lcdPin lcdPin, Joystick joystickPin, PinName potenUp, PinName potenDown) : 
     lcd(lcdPin.MOSI, lcdPin.SCK, lcdPin.RESET, lcdPin.A0, lcdPin.nCS),
@@ -155,11 +156,8 @@ int LockY::game(){
     timer.start();
     bool win = false;
 
-    std::random_device rd;
-    std::mt19937 gen(rd()); 
-    std::uniform_real_distribution<float> distrib(0.0, 1.0);
-    float leftSafe = distrib(gen);
-    float rightSafe = distrib(gen);
+    float leftSafe = rand01();
+    float rightSafe = rand01();
 
     lcd.line(0,15,127,15,1);
     //safe
@@ -223,4 +221,12 @@ bool decimalCheck(float numberOne, float numberTwo, int decimalPlaces) {
     int rounded2 = (int)(numberTwo * factor);
 
     return rounded1 == rounded2;
+}
+
+float rand01(){
+    float toReturn = rand()%2;
+    if(toReturn >= 1 ){
+        return toReturn - 1.0f;
+    }
+    return toReturn;
 }
