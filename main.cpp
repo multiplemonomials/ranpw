@@ -12,10 +12,9 @@
 // it'seem that I cant make 2 game and I dont knwo way
 // for some reason initializing DataSaver bring same problem
 
+Interaction inte;
 
 int main(){
-
-    Interaction inte;
     Thread krakenLifeThread;
     Thread menuThread;
     // //Thread dataSaverThread;
